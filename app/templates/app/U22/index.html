@@ -1,0 +1,148 @@
+{% extends "app/U22/base.html" %}
+{% load humanize %}
+{% load static %}
+
+{% block content %}
+      <div class="box1">
+        <img src="{{ main_data.banner.url }}" alt="" />
+        <div class="box1-title">
+          <!-- <h1>
+            ・時間を作りたい。 <br />
+            ・作業を楽にしたい。<br />
+            ・いつでもどこでも編集がしたい。<br />
+            ・1度に作れる動画の本数を増やしたい。<br />
+            ––––「AVE」はこれらを全て叶えます。<br />
+            あなたも簡単に、サクッと動画を作ってみませんか？
+          </h1> -->
+        </div>
+        <div class="box1-text">
+          <div class="box1-text1">
+            <p>
+              {{ main_data.content }}
+            </p>
+          </div>
+          <div class="box1-text2">
+            <p>
+              {{ main_data.content_sub }}
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--box1-->
+
+      <!--box2-->
+      <div class="box2">
+        <div class="box2-img">
+          <img src="{{ main_data.product_image.url }}" alt="box2-img" />
+        </div>
+        <div class="box2-text">
+          <div>
+            <p>
+              {{ main_data.product }}
+            </p>
+            <div class="box2-link">
+              <a href="./shop.html">詳しく見る</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--box2-->
+
+      <!--box3-->
+<div class="box3">
+  <div class="box3-title">
+    <h2>プラン</h2>
+  </div>
+  <div class="box3-items">
+    {% for item in plan_data %}
+    <div class="box3-item">
+      <h3>{{ item.title }}</h3>
+      <p>{{ item.content }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="box3-link">
+    {% if user.is_authenticated %}
+      <a href="">あなたは会員です。</a>
+    {% else %}
+      <a href="" target="_blank">新規登録</a>
+    {% endif %}
+    
+  </div>
+</div>
+
+      <!--box3-->
+
+      <!--box4-->
+      <div class="box4">
+        <div class="box4-title">
+          <h2>お知らせ</h2>
+        </div>
+        
+        {% for news in news_data %}
+        <div class="news-items">
+          <div class="news-item">
+            <div class="news-head">
+              <div class="news-date">{{ news.created }}</div>
+            </div>
+            <div class="news-title">
+              <a href="#">{{ news.title }}: {{ news.content }}</a>
+            </div>
+          </div>
+          {% endfor %}
+          
+      <!--box4-->
+
+
+    <script>
+      $(function () {
+        var pos = 0;
+        var header = $(".pc-nav");
+
+        $(window).on("scroll", function () {
+          if ($(this).scrollTop() < pos || $(this).scrollTop() < 500) {
+            //上スクロール時の処理
+            header.removeClass("hide");
+          } else {
+            //下スクロール時の処理
+            header.addClass("hide");
+          }
+          pos = $(this).scrollTop();
+        });
+      });
+    </script>
+
+    <!--hamburger-->
+    <!--hamburger-->
+
+    <script>
+      jQuery(function () {
+        var appear = false;
+        var pagetop = $("#page_top");
+        $(window).scroll(function () {
+          if ($(this).scrollTop() > 200) {
+            if (appear == false) {
+              appear = true;
+              pagetop.stop().animate(
+                {
+                  right: "5px",
+                },
+                300
+              );
+            }
+          } else {
+            if (appear) {
+              appear = false;
+              pagetop.stop().animate(
+                {
+                  right: "-50px",
+                },
+                300
+              );
+            }
+          }
+        });
+      });
+    </script>
+    
+{% endblock %}

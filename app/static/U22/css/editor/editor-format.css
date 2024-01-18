@@ -1,0 +1,51 @@
+.section {
+  /* 各sectionの上下のスペース */
+  padding: 120px 0;
+}
+
+.section:nth-of-type(even) {
+  /* 偶数sectionの背景色設定 */
+  background-color: #eee;
+}
+
+.inner {
+  /* 各section内の内枠*/
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.format-list {
+  /* Flexbox設定 */
+  display: flex; /* フレックスコンテナの指定 */
+  flex-wrap: wrap; /* 複数行に分割・	flexアイテムを折り返す */
+  justify-content: space-between; /* 各アイテムを均等に配置 */
+}
+
+.format-item {
+  /* 各ボックス */
+  width: 333px;
+  margin-bottom: 40px;
+  /* background-color: #eee; */
+  border: 1px solid cyan;
+}
+
+.format-title {
+  /* タイトル */
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.format-icon {
+  /* アイコンエリア */
+  margin-top: 4px;
+  text-align: center;
+}
+
+.format-icon img {
+  /* アイコン */
+  width: 24px;
+  margin-bottom: 10px;
+}

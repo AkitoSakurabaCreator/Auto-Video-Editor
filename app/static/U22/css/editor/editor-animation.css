@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+*{
+  color: cyan;
+}
+
+main{
+  max-width: 1380px;
+  width: 100%;
+}
+
+.section {
+  /* 各sectionの上下のスペース */
+  padding: 0 0;
+}
+
+.section:nth-of-type(even) {
+  /* 偶数sectionの背景色設定 */
+  background-color: #eee;
+}
+
+.inner {
+  /* 各section内の内枠*/
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+.editor-list {
+  /* width: 100%; */
+  /* Flexbox設定 */
+  display: flex;
+  justify-content: flex-start;;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.editor-item {
+  /* 各ボックス */
+  /* width: 300px; */
+  width: 260px;
+  height: auto;
+  /* margin-bottom: 40px; */
+  background-color: #eeeeee48;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.editor-title {
+  /* タイトル */
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 14px;
+}
+.editor-explain {
+  /* タイトル */
+  color: rgb(82, 255, 171);
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 14px;
+}
+
+.editor-icon {
+  /* アイコンエリア  */
+  margin-top: 4px;
+  text-align: center;
+  padding-top: 4px;
+}
+
+.editor-icon img {
+  /* アイコン */
+  width: 24px;
+  margin-bottom: 10px;
+}
+
+#edit_content{
+  max-width: 1000px;
+  width: 100%;
+}
+#edit-section{
+  display: flex;
+  justify-content:space-around;
+  flex-wrap: wrap;
+}
+
+#drop-zone{
+  max-width: 1000px;
+  width: 100%;
+  border: 1px solid cyan;
+  padding: 30px;
+}
+.previewBox{
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+#preview video{
+  max-width: 1000px;
+  width: 100%;
+  height: auto;
+}
+.inputGroup{
+  width: 300px;
+  height: 80px;
+  padding: 10px;
+}
+.titleInput{
+  /* color: cyan; */
+  background-color: #eee;
+  font-size: 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding-bottom: 8px;
+  box-sizing: border-box; 
+    /*横幅の解釈をpadding, borderまでとする*/
+  /* box-shadow: 0 0 5px 0 rgb(0, 234, 255); */
+  border: 2px solid #FFF !important;
+  outline: 0;
+}
+
+.text_underline{
+  position: relative; /*.text_underline::beforeの親要素*/
+  border-top: 1px solid cyan; /*text3の下線*/
+}
+
+/*左から右へのアニメーション*/
+.text_underline::before{
+  position: absolute; 
+  left: 0px; /*左配置 ここright: 0px;にすると右から左のアニメーション*/
+  bottom: 0px; /*左配置*/
+  width: 0px; /*アニメーションで0pxから100%に*/
+  height: 1px; /*高さ*/
+  content: '';
+  background-color: #3be5ae; /*アニメーションの色*/
+  transition: all 0.5s;
+  -webkit-transition: all 0.5s;
+}
+
+#inputLabel:focus + .text_underline::before{
+  width: 100%;
+}
+
+.select-info{
+  margin-top: 80px;
+  position: fixed;
+  left: 180px;
+  bottom: 0;
+  width: 100%;
+}
+.select-info ul{
+  padding: 0;
+  list-style: none;
+}
+
+#audio_area .audio {
+  display: inline-block;
+  transition: all 0.3s;
+  cursor: pointer;
+ }
+ #audio_area .audio:hover {
+  opacity: 0.6;
+ }
+
+ ul{
+  padding-left: 500px;
+ }

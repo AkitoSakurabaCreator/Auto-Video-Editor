@@ -1,0 +1,24 @@
+{% load humanize %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'U22/css/editor/normalize.css' %}"/>
+    <link rel="stylesheet" href="{% static 'U22/css/editor/editor-select.css' %}" />
+    <title>Select</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+  </head>
+  <body>
+    <h1>AVEにようこそ</h1>
+    <div class="chose">
+      <div class="new-edit">
+        <a href="{% url 'editors' %}">新規作成</a>
+      </div>
+      <div class="temp-edit">
+        <a href="{% url 'editor_list' %}">テンプレート</a>
+      </div>
+    </div>
+  </body>
+</html>

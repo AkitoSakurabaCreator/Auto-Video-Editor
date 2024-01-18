@@ -1,0 +1,54 @@
+{% extends "app/U22/base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+    <link rel="stylesheet" href="{% static 'U22/css/contact.css' %}" />
+    <title>{% block title%}Contact{% endblock %}</title>
+    <body>
+        <h1 class="title">お問い合わせ</h1>
+        <div class="content">
+            <p>以下のフォームに必要事項をご記入のうえ、お気軽にご連絡ください。</p>
+            <p>フォーム送信後、担当者からご連絡させていただきます。</p>
+        </div>
+        <p class="caution"><span>*</span> 必須項目</p>
+        <div class="form">
+            <form>
+                <ul class="forms">
+                    <li class="formsContent">
+                        <label for="name">お名前 <span>*</span></label>
+                        <input type="text" id="name" required> 
+                    </li>
+                    <li class="formsContent">
+                        <label for="callName">ふりがな <span>*</span></label>
+                        <input type="text" id="callName" required> 
+                    </li>
+                    <li class="formsContent">
+                        <label for="tel">電話番号 <span>*</span></label>
+                        <input type="text" id="tel" required> 
+                    </li>
+                    <li class="formsContent">
+                        <label for="telTime">電話の希望時間帯 <span>*</span></label>
+                        <input type="text" id="telTime" required> 
+                    </li>
+                    <li class="formsContent">
+                        <label for="mail">メールアドレス <span>*</span></label>
+                        <input type="text" id="mail" required> 
+                    </li>
+                    <li class="formsContent">
+                        <label for="question">お問い合わせ内容 <span>*</span></label>
+                        <input type="text" id="question" required> 
+                    </li>
+                </ul>
+            </form>
+        </div>
+        <div class="checkboxAgree">
+            <input type="checkbox" id="agree">
+            <label for="agree" class="checkbox01">個人情報の取扱に同意する</label>
+        </div>
+        <div class="submitForm">
+            <input type="submit" id="submit" class="submitBtn" value="送信する">
+        </div>
+    </body>
+</html>
+{% endblock %}

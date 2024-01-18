@@ -1,0 +1,94 @@
+{% extends "app/U22/base.html" %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'U22/css/normalize.css' %}" />
+    <link rel="stylesheet" href="{% static 'U22/css/shop.css' %}" />
+
+    <title>{% block title%}ショップ{% endblock%}</title>
+
+    <div class="main">
+      <div class="plan_box">
+        <div class="plan_title">
+          <h1>購入画面</h1>
+        </div>
+
+        <div class="plan_content">
+          <div class="plan1">
+            <h1>何とかテンプレ</h1>
+            <h2>無料</h2>
+            <p>
+              このテンプレの説明、wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+            </p>
+            <div class="plan_button">
+              <a href="{% url 'shop' %}">購入</a>
+            </div>
+          </div>
+          <div class="plan2">
+            <h1>何とかテンプレ</h1>
+            <h2>無料</h2>
+            <p>
+              このプランの説明、wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+            </p>
+            <div class="plan_button">
+              <a href="{% url 'shop' %}">購入</a>
+            </div>
+          </div>
+          <div class="plan3">
+            <h1>何とかテンプレ</h1>
+            <h2>無料</h2>
+            <p>
+              このプランの説明、wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+            </p>
+            <div class="plan_button">
+              <a href="{% url 'shop' %}">購入</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="template_box">
+        <div class="template_title">
+          <h1>テンプレート</h1>
+        </div>
+
+        <div class="template_content">
+          <div class="template1">
+            <h1>何とかテンプレ</h1>
+            <h2>無料</h2>
+            <p>
+              このテンプレの説明、wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+            </p>
+            <div class="plan_button">
+              <a href="{% url 'cart' %}">購入</a>
+            </div>
+          </div>
+          <div class="template2">
+            <h1>何とかテンプレ</h1>
+            <h2>無料</h2>
+            <p>
+              このテンプレの説明、wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+            </p>
+            <div class="plan_button">
+              <a href="{% url 'shop' %}">購入</a>
+            </div>
+          </div>
+          <div class="template3">
+            <h1>何とかテンプレ</h1>
+            <h2>無料</h2>
+            <p>
+              このテンプレの説明、wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+            </p>
+            <div class="plan_button">
+              <a href="{% url 'shop' %}">購入</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      type="text/javascript"
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+    ></script>
+  </body>
+{% endblock %}

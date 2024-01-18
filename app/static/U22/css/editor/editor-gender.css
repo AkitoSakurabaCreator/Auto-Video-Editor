@@ -1,0 +1,95 @@
+
+.chose {
+  font-size: 24px;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  /* margin: 0 auto; */
+}
+.man {
+  background-color: aqua;
+  border: solid 2px #fff;
+  border-radius: 30px;
+  padding: 1em;
+}
+.woman {
+  background-color: #e95388;
+  border: solid 2px #fff;
+  border-radius: 30px;
+  padding: 1em;
+}
+
+.navigation{
+  width: 200px;
+}
+
+
+/*タブ切り替え全体のスタイル*/
+.tabs {
+  margin-top: 50px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 0 auto;
+  height: auto;
+}
+
+/*タブのスタイル*/
+.tab_item {
+  width: 100%;
+  margin-left: 0px;
+  padding-left: 0px;
+  line-height: 50px;
+  font-size: 16px;
+  text-align: center;
+  color: #fff;
+  display: block;
+}
+.tab_item:hover {
+  opacity: 0.75;
+  background-color: #5ab4bd;
+}
+
+article {
+  display: flex;
+}
+
+/*ラジオボタンを全て消す*/
+input[name="tab_item"] {
+  display: none;
+}
+
+/*タブ切り替えの中身のスタイル*/
+.tab_content {
+  display: none;
+  /* display: block; */
+  padding: 40px 40px 0;
+  clear: both;
+  overflow: hidden;
+  z-index: 1;
+}
+
+
+/*選択されているタブのコンテンツのみを表示*/
+.tabs input #format:checked ~ #format_content
+/* #filter:checked ~  .container #filter_content,
+#animation:checked ~ .container #animation_content,
+#bgm:checked ~ .container #bgm_content */
+{
+  display: block;
+}
+
+/*選択されているタブのスタイルを変える*/
+.tabs input:checked + .tab_item {
+  background-color: #5ab4bd;
+  color: #fff;
+}
+
+/* ul{
+  z-index: 999;
+  pointer-events: none;
+} */
+
+.select-info{
+  z-index: 999;
+  margin-left: 70%;
+}

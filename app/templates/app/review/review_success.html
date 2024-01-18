@@ -1,0 +1,13 @@
+{% extends 'app/base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<article class="message is-primary">
+    <div class="message-header">
+        <p style="margin:0;">レビュー送信しました。</p>
+    </div>
+    <div class="message-body">
+        {{ User }}様レビュー投稿ありがとうございます。
+        投稿までに数分掛かる場合がございます。 
+    </div>
+</article>
+{% endblock%}

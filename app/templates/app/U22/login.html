@@ -1,0 +1,26 @@
+{% extends "app/U22/base.html" %}
+{% load static %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static 'U22/css/normalize.css' %}" />
+    <link rel="stylesheet" href="{% static 'U22/css/login.css' %}" />
+        <title>login</title>
+    </head>
+
+    <body>
+        <!-- <div class="main"> -->
+            <div class="login-title">
+                <h1>ログイン</h1>
+            </div>
+            <div class="login-input">
+                <input class="input_mail" type="email" placeholder="メールアドレス"></input>
+                <input class="input_pass" type="password" placeholder="パスワード">
+            </div>
+            <div class="login-button">
+                <a href="#">ログイン</a>
+            </div>
+
+            <p class="p1">パスワードを忘れた方は、<a href="account_manage">こちらから</a></p>
+            <p class="p2">アカウントをお持ちでない方は、<a href="account_sign_up">こちらから</a></p>
+        <!-- </div> -->
+{% endblock %}

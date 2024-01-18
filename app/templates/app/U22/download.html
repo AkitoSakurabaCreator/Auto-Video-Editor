@@ -1,0 +1,45 @@
+{% extends "app/U22/base.html" %}
+{% load static %}
+
+{% block download %}
+<!DOCTYPE html>
+    <title>{% block title%}ダウンロード画面{% endblock%}</title>
+    <link rel="stylesheet" href="{% static 'U22/css/download.css' %}"></link>
+    <body>
+        <div class="dlMain">
+            <div class="dlHeader">
+                <ul>
+                    <li><a>← 編集に戻る</a></li>
+                    <li><a>ホーム</a></li>
+                </ul>
+            </div>
+            <div class="dlContentWrapper">
+                <div class="dlContents">
+                    <div class="dlVideoTitle"><a>動画の名前</a></div>
+                    <div class="dlVideoElements">
+                        <ul>
+                            <li><a>長さ</a></li>
+                            <li><a>10:00</a></li>
+                            <li><a>サイズ 12.8MB</a></li>
+                            <li><a>コンピュータに保存   </a></li>
+                        </ul>
+                    </div>
+                    <div class="dlLinkCreateButton">
+                        <a>動画リンクを作成</a>
+                    </div>
+                    <div class="dlLinkSave">
+                        <a>動画を保存または共有</a>
+                        <ul>
+                            <li><a>OneDriveへ保存</a></li>
+                            <li><a>GoogleDriveへ保存</a></li>
+                            <li><a>Youtubeへ保存</a></li>
+                            <li><a>TikTokへ保存</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="dlVideo"></div>
+            </div>
+        </div>
+    </body>
+</html>
+{% endblock %}

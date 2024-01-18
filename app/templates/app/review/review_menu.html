@@ -1,0 +1,27 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<section class="favoritesection">
+    <div class="title_box">
+        <h1>レビュー編集項目</h1>
+        <p>商品とコーデのレビュー選択ができます。</p>
+    </div>
+    <ul>
+        <li>
+            <a href="{% url 'review_list' %}">
+                <h2>アイテムレビューリスト</h2>
+                <p>アイテムレビューが表示されます。</p>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'fashion_view_review_list' %}">
+                <h2>コーデレビューリスト</h2>
+                <p>コーデレビューが表示されます。</p>
+            </a>
+        </li>
+    </ul>
+</section>
+
+
+{% endblock %}

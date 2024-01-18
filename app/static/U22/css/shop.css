@@ -1,0 +1,150 @@
+* {
+  margin: 0%;
+}
+
+body {
+  background-color: white;
+}
+
+.plan_title {
+  text-align: center;
+}
+
+.plan_content {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.plan_content p {
+  word-wrap: break-word;
+  letter-spacing: 2px;
+}
+
+.plan1 {
+  width: 30%;
+  border: #454245 solid 1px;
+  padding: 16px;
+}
+.plan2 {
+  width: 30%;
+  border: #454245 solid 1px;
+  padding: 16px;
+}
+.plan3 {
+  width: 30%;
+  border: #454245 solid 1px;
+  padding: 16px;
+}
+
+.template_title {
+  text-align: center;
+}
+
+.template_content {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.template_content p {
+  word-wrap: break-word;
+  letter-spacing: 2px;
+}
+
+.template1 {
+  width: 30%;
+  border: #454245 solid 1px;
+  padding: 16px;
+}
+.template2 {
+  width: 30%;
+  border: #454245 solid 1px;
+  padding: 16px;
+}
+.template3 {
+  width: 30%;
+  border: #454245 solid 1px;
+  padding: 16px;
+}
+
+.plan_button {
+  margin: 40px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+}
+.plan_button a {
+  text-decoration: none;
+  list-style: none;
+  color: #454245;
+  background-color: #afeeee;
+  border: 1px solid #454245;
+  border-radius: 20px;
+  padding: 10px 20px 10px 20px;
+}
+.plan_button a:hover {
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+@media (min-width: 576px) {
+  .plan1,
+  .plan2,
+  .plan3,
+  .template1,
+  .template2,
+  .template3 {
+    width: 48%;
+  }
+}
+
+@media (min-width: 768px) {
+  .plan1,
+  .plan2,
+  .plan3,
+  .template1,
+  .template2,
+  .template3 {
+    width: 30%;
+  }
+}
+/* モバイル端末向けのスタイル */
+@media only screen and (max-width: 480px) {
+  .plan_content {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .plan1,
+  .plan2,
+  .plan3,
+  .template1,
+  .template2,
+  .template3 {
+    width: 100%;
+  }
+}
+
+/* タブレット端末向けのスタイル */
+@media only screen and (max-width: 768px) {
+  .plan1,
+  .plan2,
+  .plan3,
+  .template1,
+  .template2,
+  .template3 {
+    width: 45%;
+  }
+}
+
+/* デスクトップ向けのスタイル */
+@media only screen and (min-width: 769px) {
+  .plan1,
+  .plan2,
+  .plan3,
+  .template1,
+  .template2,
+  .template3 {
+    width: 30%;
+  }
+}

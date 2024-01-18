@@ -1,0 +1,64 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<section class="orderseciton">
+    <div class="title_box">
+        <h1>お気に入りリスト</h1>
+        <p>お気に入り登録したリストが表示されます。</p>
+    </div>
+    {% if Review_Data %}
+        {% for review in Review_Data %}
+            <div class="reviewers">
+                <div class="review_detail">
+                    <div class="rate">
+                        {% for file_id in ""|rjust:review.like %}
+                        <label id ="star">★</label>
+                        {% endfor %}
+                    </div>
+                    <h3>{{ review.title }}</h3>
+                    <p>{{ review.content }}</p>
+                    <div id="product_detail_box">
+                        <a href="{% url 'review_edit' review.id review.content_id %}" class="btn btn-info"><i class="fas fa-comments"></i>レビュー編集</a>
+                        <a href="{% url 'review_delete' review.id review.content_id %}" class="btn btn-danger"><i class="fas fa-trash"></i>レビュー削除</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <div class="paginator">
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                {% if Review_Data.has_previous %}
+                <a class="pagination-previous" href="?p={{ Review_Data.previous_page_number }}">前のページへ</a>
+                {% endif %}
+                {% if Review_Data.has_next %}
+                <a class="pagination-next" href="?p={{ Review_Data.next_page_number }}">次のページへ</a>
+                {% endif %}
+                <ul class="pagination-list">
+                    {% if Review_Data.has_previous %}
+                    {% if Review_Data.previous_page_number != 1 %}
+                    <li><a class="pagination-link" href="?p=1">1</a></li>
+                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                    {% endif %}
+                    <li><a class="pagination-link"
+                            href="?p={{ Review_Data.previous_page_number }}">{{ Review_Data.previous_page_number }}</a></li>
+                    {% endif %}
+                    <li><a class="pagination-link is-current" href="?p={{ Review_Data.number }}">{{ FashionReview_Data.number }}</a></li>
+                    {% if Review_Data.has_next %}
+                    <li><a class="pagination-link"
+                            href="?p={{ Review_Data.next_page_number }}">{{ Review_Data.next_page_number }}</a></li>
+                    {% if Review_Data.next_page_number != Review_Data.paginator.num_pages %}
+                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                    <li><a class="pagination-link"
+                            href="?p={{ Review_Data.paginator.num_pages }}">{{ Review_Data.paginator.num_pages }}</a></li>
+                    {% endif %}
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% else %}
+        <h2>お気に入りが見つかりません。</h2>
+    {% endif %}
+</section>
+
+
+{% endblock %}

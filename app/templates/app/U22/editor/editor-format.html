@@ -1,0 +1,23 @@
+{% extends "app/U22/editor/editor-base.html" %}
+
+{% load humanize %}
+{% load static %}
+{% block title %}フォーマット選択{% endblock %}
+
+{% block content %}
+<section class="section" id="format-section">
+  <div class="inner">
+    <div class="format-list">
+      {% for item in format_data %}
+      <div class="format-item">
+        <img src="" alt="" />
+        <div class="format-title">{{ item.title }}</div>
+        <div class="format-icon">
+          <img src="{% static 'images/U22/play.png' %}" alt="" />
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

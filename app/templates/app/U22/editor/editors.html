@@ -1,0 +1,378 @@
+{% load static %}
+{% load widget_tweaks %}
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+   <link rel="stylesheet" href="{% static 'U22/css/editor/normalize.css' %}" />
+
+   <link rel="stylesheet" href="{% static 'U22/css/editor/editor-base.css' %}" />
+
+   <link rel="stylesheet" href="{% static 'U22/css/editor/editor-gender.css' %}" />
+   <link rel="stylesheet" href="{% static 'U22/css/editor/editor-animation.css' %}" />
+
+   <title>{% block title %}Editor{% endblock %}</title>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+   
+   <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
+</head>
+
+<body>
+   <article>
+      <nav class="navigation">
+         <img src="{% static 'images/U22/logo1.png' %}" alt="" />
+         <div class="tabs">
+            <input id="upload" type="radio" name="tab_item">
+            <label class="tab_item" for="upload">アップロード</label>
+            <input id="format" type="radio" name="tab_item">
+            <label class="tab_item" for="format">フォーマット</label>
+            <input id="filter" type="radio" name="tab_item">
+            <label class="tab_item" for="filter">フィルター</label>
+            <input id="animation_content" type="radio" name="tab_item">
+            <label class="tab_item" for="animation_content">アニメーション</label>
+            <input id="bgm" type="radio" name="tab_item">
+            <label class="tab_item" for="bgm">BGM</label>
+            <input id="edit" type="radio" name="tab_item">
+            <label class="tab_item" for="edit">編集</label>
+
+         </div>
+      </nav>
+
+      <main>
+         <div class="container">
+            <form method="POST" enctype="multipart/form-data">
+               {% csrf_token %}
+               <div class="tab_content" id="upload_content">
+                  <section class="section" id="edit-section">
+                     <div id="drop-zone">
+                        <p>ファイルをドラッグ＆ドロップもしくは</p>
+                        {% render_field form.upload class='form-control'%}
+                     </div>
+                     <div id="preview"></div>
+                  </section>
+               </div>
+
+               
+               <div class="tab_content" id="format_content">
+                  <section class="section" id="editor-section">
+                     <div class="inner">
+                        <div class="editor-list">
+                           {% for item in format_data %}
+                           <div class="editor-item" id="formatItem">
+                              
+                              <div class="editor-title">{{ item.title }}</div>
+                              <div class="editor-explain">{{ item.content }}</div>
+                           </div>
+                           {% endfor %}
+                        </div>
+                     </div>
+                     <input type="hidden" id="formatItemData" name="movie_format" value="1">
+                  </section>
+               </div>
+
+               <div class="tab_content" id="filter_content">
+                  <section class="section" id="editor-section">
+                     <div class="inner">
+                        <div class="editor-list">
+                           {% for item in filter_data %}
+                           <div class="editor-item" id="filterItem">
+                              
+                              <div class="editor-title">{{ item.title }}</div>
+                              <div class="editor-explain">{{ item.content }}</div>
+                           </div>
+                           {% endfor %}
+                        </div>
+                     </div>
+                     <input type="hidden" id="FilterItemData" name="filter_effect" value="1">
+                  </section>
+               </div>
+
+               <div class="tab_content" id="animation_content">
+                  <section class="section">
+                     <div class="inner">
+                        <div class="editor-list">
+                           {% for item in anim_data %}
+                           <div class="editor-item" id="animetionItem">
+                              
+                              <div class="editor-title">{{ item.title }}</div>
+                              <div class="editor-explain">{{ item.content }}</div>
+                           </div>
+                           {% endfor %}
+                        </div>
+                     </div>
+                     <input type="hidden" id="AnimeItemData" name="animations" value="1">
+                  </section>
+               </div>
+
+               <div class="tab_content" id="bgm_content">
+                  <section class="section" id="editor-section">
+                     <div class="inner">
+                        <div class="editor-list">
+                           {% for item in bgm_data %}
+                           <div class="editor-item" id="bgmItem">
+                              
+                              <div class="editor-title">{{ item.title }}</div>
+                              <div class="editor-icon">
+                                 {% if item.upload %}
+                                 <div class="audio">
+                                    <audio class="audioPlayer" src="{{ item.upload.url }}" preload="auto"></audio>
+                                    <div class="editor-icon audio_btn">
+                                       <img class="bgmImage" decoding="async" src="{% static 'images/U22/play.png' %}" alt="button1" />
+                                    </div>
+                              </div>
+                              {% endif %}
+                           </div>
+                           </div>
+
+
+                           {% endfor %}
+                        </div>
+
+                     </div>
+                     <input type="hidden" id="BgmItemData" name="bgm" value="1">
+                  </section>
+               </div>
+
+
+               <div class="tab_content" id="edit_content">
+                  <section class="section" id="edit-section">
+                     <div class="previewBox">
+                        <div id="preview"></div>
+                     </div>
+                     <div class="inputGroup">
+                        <label for="titleInput" id="inputLabel">動画のタイトル</label>
+                        {% render_field form.title class='titleInput form-control' id="titleInput" placeholder="タイトルを入力してください。"%}
+                        <div class="text_underline"></div>
+                     </div>
+                     <div class="inputGroup">
+                        <label for="id_voice" id="inputLabel">読み上げ</label>
+                        {% render_field form.voice class='form-control'%}
+                     </div>
+                     <div class="inputGroup">
+                        <label for="id_language" id="inputLabel">認識言語(主軸)</label>
+                        {% render_field form.language class='form-control'%}
+                     </div>
+                     <div class="inputGroup">
+                        <label for="id_telopPos" id="inputLabel">テロップ位置</label>
+                        {% render_field form.telopPos class='form-control'%}
+                     </div>
+                     <div class="inputGroup">
+                        <label for="id_model" id="inputLabel">認識レベル</label>
+                     {% render_field form.model class='form-control'%}
+                     </div>
+                     <div class="inputGroup">
+                        <label for="id_translate" id="inputLabel">翻訳</label>
+                        {% render_field form.translate class='form-control'%}
+                     </div>
+                     <div class="inputGroup">
+                        <label for="id_publish" id="inputLabel">テンプレート公開しますか？</label>
+                        {% render_field form.publish class='form-control'%}
+                     </div>
+                     {% comment %} <input name="movie_format" type="text" placeholder="movieFormat"></input>
+                     <input name="filter_effect" type="text" placeholder="filterEffect"></input> {% endcomment %}
+                     {% comment %} <input name="anim" type="text" placeholder="animation"></input> {% endcomment %}
+                     {% comment %} <input name="bgm" type="text" placeholder="bgm"></input> {% endcomment %}
+                     
+                     
+                  </section>
+                  <div class="btn mx-auto">
+                     <button class="btn btn-lg  btn-outline-info btn-block" type="submit">アップロードする</button>
+                  </div>
+               </div>
+               
+               <div class="select-info">
+                  <ul>
+                     <li id="format-info">フォーマット: </li>
+                     <li id="filter-info">フィルター: </li>
+                     <li id="animation-info">アニメーション: </li>
+                     <li id="bgm-info">BGM: </li>
+                  </ul>
+               </div>
+            </form>
+         </div>
+      </main>
+   </article>
+</body>
+
+
+<script>
+$('.audio_btn').on('click', function() {
+      var audioElement = $(this).prev().get(0);
+      var iconElement = $(this).find('.bgmImage');
+      let allaudioElement = document.querySelectorAll('.bgmImage')
+      if (audioElement.paused) {
+         $('.audioPlayer').each(function() {
+               $(this).get(0).pause();
+               // for(let i = 0; allaudioElement.length; i++){
+               // allaudioElement[i].attr('src', '{% static "images/U22/play.png" %}');
+               // }
+               //$(this).prev().find('.bgmImage').attr('src', '{% static "images/U22/play.png" %}');
+         });
+         audioElement.play();
+         iconElement.attr('src', '{% static "images/U22/pause.png" %}');
+      } else {
+         audioElement.pause();
+         audioElement.currentTime = 0;
+         iconElement.attr('src', '{% static "images/U22/play.png" %}');
+      }
+   });
+
+//    $('.audio_btn').on('click', function() {
+//    var audioElement = $(this).prev().get(0);
+
+//    if (audioElement.paused) {
+//       $('audio').each(function() {
+//          $(this).get(0).pause();
+//       });
+//       audioElement.play();
+//       //audioElement.src = "{% static 'images/U22/pause.png' %}"
+//    } else {
+//       audioElement.pause();
+//       audioElement.currentTime = 0;
+//       //audioElement.src = "{% static 'images/U22/play.png' %}"
+//    }
+// });
+</script>
+
+
+<script>
+   // チェックボックス全てを取得
+   /*
+   let formatItem = document.querySelectorAll("ul[class='select-info']");
+   let formatItemData = document.querySelector("#formatItemData");
+   for (let i = 0; i < formatItem.length; i++) {
+      formatItem[i].addEventListener('click', function () {
+         formatItemData.value = (i + 1);
+      });
+   }
+   */
+</script>
+
+<script>
+   // チェックボックス全てを取得
+   let formatItem = document.querySelectorAll("div[id='formatItem']");
+   let formatItemData = document.querySelector("#formatItemData");
+   let formatinfo = document.querySelector("#format-info");
+
+   for (let i = 0; i < formatItem.length; i++) {
+      formatItem[i].addEventListener('click', function () {
+         formatItemData.value = (i + 1);
+         formatinfo.innerHTML = "フォーマット: " + formatItem[i].children[0].innerHTML
+      });
+   }
+
+</script>
+<script>
+   // チェックボックス全てを取得
+   let filterItem = document.querySelectorAll("div[id='filterItem']");
+   let FilterItemData = document.querySelector("#FilterItemData");
+   let filterinfo = document.querySelector("#filter-info");
+   for (let i = 0; i < filterItem.length; i++) {
+      filterItem[i].addEventListener('click', function () {
+         FilterItemData.value = (i + 1);
+         filterinfo.innerHTML = "フィルター: " + filterItem[i].children[0].innerHTML
+      });
+   }
+</script>
+
+<script>
+   // チェックボックス全てを取得
+   let animetionItem = document.querySelectorAll("div[id='animetionItem']");
+   let AnimeItemData = document.querySelector("#AnimeItemData");
+   let animationinfo = document.querySelector("#animation-info");
+   for (let i = 0; i < animetionItem.length; i++) {
+      animetionItem[i].addEventListener('click', function () {
+         AnimeItemData.value = (i + 1);
+         animationinfo.innerHTML = "アニメーション: " + animetionItem[i].children[0].innerHTML
+      });
+   }
+</script>
+<script>
+   // チェックボックス全てを取得
+   let bgmItem = document.querySelectorAll("div[id='bgmItem']");
+   let BgmItemData = document.querySelector("#BgmItemData");
+   let bgminfo = document.querySelector("#bgm-info");
+   for (let i = 0; i < bgmItem.length; i++) {
+      bgmItem[i].addEventListener('click', function () {
+         BgmItemData.value = (i + 1);
+         bgminfo.innerHTML = "BGM: " + bgmItem[i].children[0].innerHTML
+      });
+   }
+</script>
+
+<script>
+   // チェックボックス全てを取得
+   let chk = document.querySelectorAll("input[type='radio']");
+   let tabs = document.querySelectorAll("div[class='tab_content']");
+   for (let i = 0; i < chk.length; i++) {
+      chk[i].addEventListener('change', function () {
+         if ($(this).prop("checked") == true) {
+            tabs[i].style.display = "block";
+            for (let j = 0; j < chk.length; j++) {
+               if (i != j) {
+                  tabs[j].style.display = "none";
+               }
+            }
+         }
+      });
+   }
+</script>
+<script>
+   var dropZone = document.getElementById('drop-zone');
+   var preview = document.querySelectorAll('#preview');
+   var fileInput = document.getElementById('id_upload');
+
+   dropZone.addEventListener('dragover', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      // this.style.background = '#e1e7f0';
+   }, false);
+
+   dropZone.addEventListener('dragleave', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      // this.style.background = '#ffffff';
+   }, false);
+
+   fileInput.addEventListener('change', function () {
+      previewFile(this.files[0]);
+   });
+
+   dropZone.addEventListener('drop', function (e) {
+      e.stopPropagation();
+      e.preventDefault();
+      // this.style.background = '#ffffff'; //背景色を白に戻す
+      var files = e.dataTransfer.files; //ドロップしたファイルを取得
+      if (files.length > 1) return alert('アップロードできるファイルは1つだけです。');
+      fileInput.files = files; //inputのvalueをドラッグしたファイルに置き換える。
+      previewFile(files[0]);
+      document.querySelector('#titleInput').value = files[0].name;
+   }, false);
+
+   function previewFile(file) {
+      /* FileReaderで読み込み、プレビュー画像を表示。 */
+      var fr = new FileReader();
+      fr.readAsDataURL(file);
+      fr.onload = function () {
+         for (let i = 0; i < preview.length; i++) {
+            var img = document.createElement('video');
+            img.setAttribute('src', fr.result);
+            img.setAttribute('controls', 'true');
+            preview[i].innerHTML = '';
+            preview[i].appendChild(img);
+         }
+      };
+   }
+</script>
+<script>
+   window.onload = function () {
+      document.getElementById( "upload" ).click();
+}
+</script>
+
+</html>
