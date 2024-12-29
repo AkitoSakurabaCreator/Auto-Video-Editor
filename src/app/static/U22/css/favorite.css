@@ -1,0 +1,51 @@
+.favo-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.favo-items > div {
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+}
+
+.favo-items img {
+  width: 100%;
+  height: auto;
+  border: 1px solid aqua;
+}
+
+.favo-items p {
+  margin: 5px 0;
+}
+/* デスクトップサイズ以上のスタイル */
+@media screen and (min-width: 768px) {
+  .favo-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .favo-items > div {
+    flex-basis: 300px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+}
+
+/* タブレットサイズ以上のスタイル */
+@media screen and (max-width: 767px) {
+  .favo-items > div {
+    flex-basis: 45%;
+  }
+}
+
+/* モバイルサイズのスタイル */
+@media screen and (max-width: 480px) {
+  .favo-items > div {
+    flex-basis: 90%;
+  }
+}

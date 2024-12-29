@@ -1,0 +1,250 @@
+* {
+  box-sizing: border-box; /* paddingとborderを幅と高さに含める */
+}
+
+a, p, h1, h2, h3, h4, h5{
+  color: aqua;
+}
+body {
+  font-family: "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック体", YuGothic,
+    sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+  background-color: #4b4b4b;
+}
+.navigation {
+  width: 10%;
+  height: 100vh;
+  background-color: #4b4b4b;
+  /* background-color: white; */
+  float: left;
+  border-right: solid #fff 2px;
+}
+.navigation img {
+  padding: 20px;
+  margin: 0 auto;
+  width: 150px;
+  height: 150px;
+}
+.navigation ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navigation li {
+  text-align: left;
+  padding: 10px;
+}
+
+.navigation a {
+  font-weight: bold;
+  display: block;
+  padding: 10px;
+  color: whitesmoke;
+  text-decoration: none;
+}
+.navigation a:hover {
+  color: aquamarine;
+  translate: 0.4s;
+}
+
+.content {
+  width: 30%;
+  height: auto;
+}
+
+#templateContent div {
+  padding: 30px;
+  width: 30%;
+  margin: 0 auto;
+  border: #4b4b4b solid 1px;
+  background-color: aliceblue;
+}
+#soundContent div {
+  padding: 30px;
+  width: 30%;
+  margin: 0 auto;
+  border: #4b4b4b solid 1px;
+  background-color: aliceblue;
+}
+#stockmvContent div {
+  padding: 30px;
+  width: 30%;
+  margin: 0 auto;
+  border: #4b4b4b solid 1px;
+  background-color: aliceblue;
+}
+#stockimgContent div {
+  padding: 30px;
+  width: 30%;
+  margin: 0 auto;
+  border: #4b4b4b solid 1px;
+  background-color: aliceblue;
+}
+#stockimgContent div {
+  padding: 30px;
+  width: 30%;
+  margin: 0 auto;
+  border: #4b4b4b solid 1px;
+  background-color: aliceblue;
+}
+#textContent div {
+  padding: 30px;
+  width: 30%;
+  margin: 0 auto;
+  border: #4b4b4b solid 1px;
+  background-color: aliceblue;
+}
+#chageContent div {
+  padding: 30px;
+  width: 30%;
+  margin: 0 auto;
+  border: #4b4b4b solid 1px;
+  background-color: aliceblue;
+}
+#aiautoContent div {
+  padding: 30px;
+  width: 30%;
+  margin: 0 auto;
+  border: #4b4b4b solid 1px;
+  background-color: aliceblue;
+}
+
+
+.functions{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+/* ボタン全体 */
+.flowbtn11 {
+  font-family: 'Verdana', sans-serif;
+  border-radius: 4px;
+  position: relative;
+  display: inline-block;
+  width: 160px;
+  font-size: 20px;
+  color: #fff !important;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+/* Twitter */
+.fl_tw1 {
+  background: #55acee;
+}
+
+/* Facebook */
+.fl_fb1 {
+  background: #3b5998;
+}
+
+/* はてブ */
+.fl_hb1 {
+  background: #1ba5dc;
+}
+
+/* LINE */
+.fl_li1 {
+  background: #00c300;
+}
+/* LINE */
+.fl_cp1 {
+  background: #003bc3;
+  height: 90%;
+  border-radius: 5px;
+  padding: 0;
+  font-size: 14px;
+}
+
+
+/* アイコンボタンホバー時 */
+.flowbtn11:hover span {
+  -webkit-transform: rotateX(360deg);
+  -ms-transform: rotateX(360deg);
+  transform: rotateX(360deg);
+  text-decoration: none;
+}
+
+/* ボタン内テキスト調整 */
+.flowbtn11 span {
+  font-size: 14px;
+  position: relative;
+  left: 8px;
+  bottom: 2px;
+  transition: .6s;
+  display: inline-block;
+}
+
+/* ulタグの内側余白を０にする */
+.snsbtniti2 {
+  padding: 0 !important;
+}
+
+/* アイコンボタンの位置調整 */
+.snsbtniti2 {
+  /* width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  flex-direction: row; */
+  
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0px 20px;
+  list-style: none;
+}
+
+/* アイコンボタン同士の余白調整 */
+.snsbtniti2 li {
+  width: 150px;
+  /* flex: 0 0 48%; */
+  /* display: flex; */
+  text-align: center !important;
+}
+.snsbtniti2 a{
+  color: #fff;
+}
+
+#review_button {
+  color: #fff;
+  background: #ffa50e;
+}
+#review_button_disabled {
+  color: #fff;
+  background: #555555;
+}
+
+#share_box *{
+  color: #fff !important;
+}
+
+#share_box {
+  width: 100%;
+  margin-top: 10px;
+}
+#share_detail {
+  /* display: grid;
+  place-content: left; */
+  text-align: left;
+}
+
+#previewVideo{
+  max-width: 1000px;
+  width: 100%;
+  height: auto;
+}
+
+.previewBox{
+  display: flex;
+  justify-content: center;
+}
+
+.format-item{
+  background-color: #4b4b4b;
+}

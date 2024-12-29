@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>レビュー投稿</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .review {
+        margin-top: 10%;
+        margin-left: 30px;
+        margin-right: 30px;
+      }
+      .review h3 {
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+
+      .rate-form {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: flex-end;
+      }
+      .rate-form input[type="radio"] {
+        display: none;
+      }
+      .rate-form label {
+        position: relative;
+        padding: 0 5px;
+        color: #ccc;
+        cursor: pointer;
+        font-size: 35px;
+      }
+      .rate-form label:hover {
+        color: #ffcc00;
+      }
+      .rate-form label:hover ~ label {
+        color: #ffcc00;
+      }
+      .rate-form input[type="radio"]:checked ~ label {
+        color: #ffcc00;
+      }
+
+      .item {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid #919090;
+      }
+
+      .item_image {
+        width: 80px;
+        height: auto;
+      }
+
+      .item_name {
+        margin-left: 3%;
+      }
+
+      .review_Lv {
+        margin-top: 12px;
+      }
+
+      .mb-3 {
+        margin-top: 12px;
+      }
+
+      .btn {
+        margin-top: 12px;
+        margin-right: 6px;
+      }
+    </style>
+  </head>
+
+  <div class="container">
+    <div class="review">
+      <h3>この商品をレビュー</h3>
+      <div class="item">
+        <img src="images/FocS84lakAAzN6Z.jpg" alt="" class="item_image" />
+        <p class="item_name">カラーバター ネイビーブルー</p>
+      </div>
+
+      <div class="rate-form">
+        <input id="star5" type="radio" name="rate" value="5" />
+        <label for="star5">★</label>
+        <input id="star4" type="radio" name="rate" value="4" />
+        <label for="star4">★</label>
+        <input id="star3" type="radio" name="rate" value="3" />
+        <label for="star3">★</label>
+        <input id="star2" type="radio" name="rate" value="2" />
+        <label for="star2">★</label>
+        <input id="star1" type="radio" name="rate" value="1" />
+        <label for="star1">★</label>
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label"
+          >レビュータイトル</label
+        >
+        <input
+          type="email"
+          class="form-control"
+          id="exampleFormControlInput1"
+          placeholder="最も伝えたいポイントはなんですか？"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label"
+          >レビューを追加</label
+        >
+        <textarea
+          class="form-control"
+          id="exampleFormControlTextarea1"
+          rows="3"
+          placeholder="気に入ったこと/気に入らなかったことは何ですか？この製品をどのように使いましたか？"
+        ></textarea>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <a href="review_confirmation.html"
+            ><button class="btn btn-primary" type="submit">
+              内容を確認する
+            </button></a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</html>

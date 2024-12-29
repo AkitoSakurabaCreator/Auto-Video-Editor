@@ -1,0 +1,15 @@
+{% extends "app/U22/editor/editor-base.html" %}
+
+{% load humanize %}
+{% load static %}
+{% block title %}フィルター{% endblock %}
+
+{% block content %}
+<div class="content-box">
+{% for item in filter_data %}
+  <div class="filter">
+    <p>{{ item.title }}</p>
+  </div>
+{% endfor %}
+</div>
+{% endblock %}

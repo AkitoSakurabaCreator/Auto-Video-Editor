@@ -1,0 +1,22 @@
+.buck {
+  text-align: center;
+}
+
+.content-box {
+  float: right;
+  width: 80%;
+  height: 100%;
+  margin: 2.5%;
+  float: right;
+}
+.content-box .filter {
+  background-color: azure;
+  width: 25%;
+  height: 60%;
+  margin: 1.25%;
+  padding: 5% 2.5%;
+  float: right;
+}
+.content-box .filter p {
+  text-align: center;
+}

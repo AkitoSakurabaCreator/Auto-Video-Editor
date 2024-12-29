@@ -1,0 +1,23 @@
+{% extends "app/U22/editor/editor-base.html" %}
+
+{% load humanize %}
+{% load static %}
+{% block title %}BGM選択{% endblock %}
+
+{% block content %}
+<section class="section" id="bgm-section">
+  <div class="inner">
+    <div class="bgm-list">
+      {% for item in bgm_data %}
+      <div class="bgm-item">
+        <img src="" alt="" />
+        <div class="bgm-title">{{ item.title }}</div>
+        <div class="bgm-icon">
+          <img src="{% static 'images/U22/play.png' %}" alt="" />
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

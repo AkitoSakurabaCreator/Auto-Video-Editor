@@ -1,0 +1,98 @@
+{% extends "app/base.html" %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<section class="orderseciton">
+    <div class="title_box">
+        <h1>注文履歴</h1>
+        <p>注文した履歴が表示されます。</p>
+    </div>
+    <div class="ordersearchbox">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="field has-addons has-addons-centered ">
+                <p class="control">
+                <input class="input" type="text" name="search_data" placeholder="検索したいワード……">
+                </p>
+                <p class="control">
+                    <button type="submit" class="button is-primary">検索する</button>
+                </p>
+            </div>
+        </form>
+    </div>
+    {% if OrderHistory %}
+        {% for order in OrderHistory %}
+        <div class="order-card">
+            <div class="Order_details">
+                <ul>
+                    <li>
+                        <p>注文日：</p>
+                        <p>{{ order.ordered_date }}</p>
+                    </li>
+                    <li>
+                        <p>合計：</p>
+                        <p>{{ order.item.price | intcomma }}円</p>
+                    </li>
+                    <li>
+                        <p>お届け先：</p>
+                        <p>{{ UserData.address }}</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="Order_item">
+                <h3>XX月XX日に配達予定。</h3>
+                <div class="detail">
+                    <div class="item_details">
+                        <a href="{% url 'product' order.item.slug %}">
+                            <img src="{{ order.item.image.url }}" alt="商品" class="item_image" />{{ order.item.title }}
+                        </a>
+                    </div>
+                    <div class="OrderFunction">
+                        <a class="btn-warning" href="{% url 'product' order.item.slug %}">再度購入</a>
+                        <a class="btn-primary" href="{% url 'product' order.item.slug %}">商品を表示</a>
+                        <a class="btn-info" href="{% url 'review_post' order.item.slug %}">
+                            商品レビューを書く
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{ item.price }}
+        {% endfor %}
+        <div class="paginator">
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                {% if OrderHistory.has_previous %}
+                <a class="pagination-previous" href="?p={{ OrderHistory.previous_page_number }}">前のページへ</a>
+                {% endif %}
+                {% if OrderHistory.has_next %}
+                <a class="pagination-next" href="?p={{ OrderHistory.next_page_number }}">次のページへ</a>
+                {% endif %}
+                <ul class="pagination-list">
+                    {% if OrderHistory.has_previous %}
+                    {% if OrderHistory.previous_page_number != 1 %}
+                    <li><a class="pagination-link" href="?p=1">1</a></li>
+                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                    {% endif %}
+                    <li><a class="pagination-link"
+                            href="?p={{ OrderHistory.previous_page_number }}">{{ OrderHistory.previous_page_number }}</a></li>
+                    {% endif %}
+                    <li><a class="pagination-link is-current" href="?p={{ OrderHistory.number }}">{{ OrderHistory.number }}</a></li>
+                    {% if OrderHistory.has_next %}
+                    <li><a class="pagination-link"
+                            href="?p={{ OrderHistory.next_page_number }}">{{ OrderHistory.next_page_number }}</a></li>
+                    {% if OrderHistory.next_page_number != OrderHistory.paginator.num_pages %}
+                    <li><span class="pagination-ellipsis">&hellip;</span></li>
+                    <li><a class="pagination-link"
+                            href="?p={{ OrderHistory.paginator.num_pages }}">{{ OrderHistory.paginator.num_pages }}</a></li>
+                    {% endif %}
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    {% else %}
+        <h2>商品が見つかりません。</h2>
+    {% endif %}
+</section>
+
+
+{% endblock %}
