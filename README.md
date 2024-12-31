@@ -1,89 +1,344 @@
-制作開発環境構成 🛠
-OS: Windows10
-RAM: 128GB
-RTX 3090Ti 24G x2
-Visual Studio Code
-Python 3.11.3
-Redis 3.0.504
-Browser: Sidekick 114.50.2.35132
-開発フロー 🌫
-動画編集の一通りの流れ
-ブラウザーからサーバーへアクセスし、
+---
+title: "Auto Video Editor"
+tags: ""
+---
 
-Djangoへ動画や動画編集項目情報を送り、データベースへ登録する
-Redisへタスクを予約し、データベースを渡す。
-Redisはデータベースに従って、Python(動画編集)を行う。
-ブラウザはAjaxによって、随時サーバーへアクセスし、Redisのタスク状態を取得する。
-動画編集処理が終了し、データベースへ編集済み動画を登録、RedisはSUCCESS状態をデータベースへ登録。
-AjaxでRedisがSUECCESS状態を感知し、自ページをリダイレクトする。
-データベースに編集済みの動画を取得し、ページ内に表示する。
-動画の処理
-ffmpegで音声と映像ファイルへ分離させる。
-分離した音声ファイルからWhisperを利用し、音声から文字を起こす。
-Moviepyによって、映像ファイル一枚ずつフレームへ書き起こした文字を印字していく。
-1の音声ファイルがノーマライズ(音量のピーク時まで拡大)される。
-VoiceVoxが有効な場合、2の処理が終了後VoiceEngineへ指定された音声キャラクターとセリフが送られ、音声が生成される。
-3の処理が終了後、音声を全て結合し、一つのファイルへ生成。
-6で生成された音声ファイルと6で生成されたフォイルを結合
-3で編集された映像ファイルと7で生成されたファイルをffmpegによって結合し、データベースへ登録。
-サイト紹介
-index: トップページのテキストやイメージ画像はデータベースから 照合されている。
+<div id="top"></div>
 
-editor: 新規・テンプレートの画面が表示される。
+## 使用技術一覧
+<!-- シールド一覧 -->
+<!-- 該当するプロジェクトの中から任意のものを選ぶ-->
+<p style="display: inline">
+  <!-- バックエンドのフレームワーク一覧 -->
+  <img src="https://img.shields.io/badge/-Django-092E20.svg?logo=django&style=for-the-badge">
+  <!-- バックエンドの言語一覧 -->
+  <img src="https://img.shields.io/badge/-Python-F2C63C.svg?logo=python&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Redis-D82C20.svg?logo=redis&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Jquery-0769AD.svg?logo=jquery&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Css3-1572B6.svg?logo=css3&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Html5-E34F26.svg?logo=html5&style=for-the-badge">
+<img src="https://img.shields.io/badge/-Javascript-F7DF1E.svg?logo=javascript&style=for-the-badge">
+  
+</p>
 
-editors: 動画処理の内容を登録し、サーバへ登録するフォーム。(この時にテンプレートが登録される。)
 
-editor/template: 過去にeditorsで作ったテンプレートが表示され、項目を入力しなくても、使い回すことができる。
+## プロジェクト名
+### Auto Video Editor
+## 目次
 
-editor/mylist: 過去に動画を編集した情報が横並びに表示される
+1. [プロジェクトについて](#プロジェクトについて)
+2. [環境](#環境)
+4. [機能説明](#機能説明)
 
-editor/list: 過去に作ったテンプレートが横並びに表示される。
 
-editor/view: 動画とタイトル、URL共有ができるページ
 
-editor/progress: 動画編集中にここに遷移される。
+## プロジェクトについて
+指定した動画素材を自動で編集してくれるアプリケーションです。音量の調節やテロップの生成を自動で行ってくれます。
 
-accounts/login: アカウントをログインするページ
 
-accounts/signup: アカウントを登録するページ
+## デモ(図解)
+![image.png](https://boostnote.io/api/teams/ZiDFKbzPj/files/2a7f2746c24503b6ee623fc5387b8d8b0c21346960bf903cded4d36fa2026a7b-image.png)
 
-accounts/logout: アカウントをログアウトするページ
 
-accounts/profile: アカウントのプロフィールページ
+こちらは、紹介動画のリンクです。
 
-accounts/profile/edit: アカウントのプロフィール編集ページ
+→ [2920fe2e8528c095abe9723154d691b1.mp4](https://boostnote.io/api/teams/ZiDFKbzPj/files/0d6411e16012cd142c6699a945a9186778415503150956418f3bbc3ade0dd118-2920fe2e8528c095abe9723154d691b1.mp4)
 
-accounts/profile/delete: アカウントを削除するページ
 
-accounts/manage: アカウントの管理
 
-アカウント管理
-allauthを利用して、アカウントの認証処理などを行う。
-カスタムユーザクラスを利用し、allauthに用意されているクラスをオーバライドして、望みの処理を行えるようにする。
-login/signup/signout/などのようなアカウントを利用する処理にはUsersデータベースから照合し、情報を返す。
-ストーリー
-最近はYouTubeやTikTokなどのサービスが普及し、今や当たり前のように利用されています。 見る人はもちろん、動画クリエイターさんも増えてきています。
+## 環境
 
-一方で視聴者さんの求める動画のクオリティも上がってきて、 過去に比べると、クオリティを上げるために作業の量が増え、1日中動画編集をしなければならなく、 他に趣味に時間を使いたかったり、家族に時間を割きたいなどの時間問題が生じてしまいます。
+<!-- 言語、フレームワーク、ミドルウェア、インフラの一覧とバージョンを記載 -->
 
-毎日一本上げる動画クリエイターはより、時間がありません。
+ 言語・フレームワーク・ライブラリー  | バージョン |
+| --------------------- | ---------- |
+| Python                | 3.12       |
+| Javascript            | 4.2.1      |
+| Html5                 | 3.14.0     |
+| Css3                  | 8.0        |
+| Django                | 16.17.0    |
+| Ajax                  | 18.2.0     |
+| Jquery                | 13.4.6     |
+| Redis                 | 1.3.6      |
+| voicebox              ||
+| whisper               | 1.1.10     | 
+| moviepy               | 1.0.3      | 
+| ffmpeg                | 1.4        | 
+| opencv-python                | 4.7.0.72      | 
+| numpy                 | 1.24.2     | 
 
-そこで、アプローチとして 文字起こし・音量調節などのような繰り返し行われる作業を自動化すれば、 動画クリエイターさんのサポートになるのではないかと、考え今回のような企画をし、開発に至りました。
+ pip install -r requirements.txt でライブラリをインストールしてください。
+ 
+<br>※ライブラリのインストールが上手くいかない場合は「起動コマンドをインストールしてください」のメッセージが消えるまで(正常に起動できるまで) pip install 〇〇で1つずつインストールしてください。
 
-現実的な問題解決としては 全てを自動化するのはまだ壁があります。 そこで、同じ作業は自動化し、あとはその動画だけの編集を加えるだけという状態を想定し、開発に取り組みました。 (いずれ、全てを自動化できる時代が来るかもしれません。私たちがそれを作るかもしれません！笑)
 
-今やスマホは当たり前になっており、スマホで撮影し、スマホで編集し、スマホで投稿する時代になってきていると感じています。 今回制作するアプリケーションはWebアプリケーションです。
+## 機能説明
 
-つまり、インターネットに繋がるという状態にあれば、「いつでもどこでも編集が可能」ということ。 動画クリエイターさんが気軽に撮影して、投稿ができるということです。
+・自動動画編集(音量の調節・テロップの生成)
 
-私たちはこのツールが世に広がることで、動画編集に新しい風を吹かせられると信じています。
+・テンプレートの共有(公開された状態でURLを共有)
 
-現状このツールの強みを大きく分けて ・動画編集(テロップ生成や音声読み上げなど) ・テンプレートの共有(公開にされた状態でURLを共有) ・動画編集後のURLによっての共有(公開にされた状態でURLを共有) の3つです。
+・動画編集後のURL共有(公開にされた状態でURLを共有) 
 
-また、このサービスはサブスクのプラン制で、 エコノミ、ノーマル、プレミアム、無制限(未定)4つのプランを考えております。
-
-プランによって、月に編集できる数や音声の認識レベルが変わります。
-
-今後の展開としては、さらに編集できる機能の増加やテンプレートの販売が可能になり、 サイト内でのテンプレート販売、C to Cを考えています。
-
-またユーザーさんの意見により更なるツールの進化をしていく見込みです。
+## ディレクトリ構成
+├─accounts
+│  ├─migrations
+│  │  └─__pycache__
+│  ├─templates
+│  │  └─accounts
+│  │      ├─bk
+│  │      │  └─test
+│  │      ├─inquiry
+│  │      ├─login
+│  │      ├─password
+│  │      ├─profile
+│  │      └─register
+│  │          └─txt
+│  │              └─mail_template
+│  │                  └─create
+│  └─__pycache__
+├─app
+│  ├─ave
+│  │  ├─.ipynb_checkpoints
+│  │  ├─prg
+│  │  │  └─__pycache__
+│  │  └─__pycache__
+│  ├─collected_static
+│  │  ├─admin
+│  │  │  ├─css
+│  │  │  │  └─vendor
+│  │  │  │      └─select2
+│  │  │  ├─fonts
+│  │  │  ├─img
+│  │  │  │  └─gis
+│  │  │  └─js
+│  │  │      ├─admin
+│  │  │      └─vendor
+│  │  │          ├─jquery
+│  │  │          ├─select2
+│  │  │          │  └─i18n
+│  │  │          └─xregexp
+│  │  └─css
+│  ├─migrations
+│  │  └─__pycache__
+│  ├─static
+│  │  ├─css
+│  │  ├─images
+│  │  │  ├─Material
+│  │  │  └─U22
+│  │  ├─js
+│  │  └─U22
+│  │      ├─css
+│  │      │  └─editor
+│  │      └─js
+│  ├─templates
+│  │  └─app
+│  │      ├─review
+│  │      ├─store
+│  │      └─U22
+│  │          ├─editor
+│  │          └─static
+│  │              ├─css
+│  │              ├─img
+│  │              ├─js
+│  │              └─logo
+│  ├─templatetags
+│  │  └─__pycache__
+│  └─__pycache__
+├─media
+│  ├─site
+│  └─Users
+│      ├─MovieEdit
+│      ├─MovieEdited
+│      ├─ProfileImages
+│      └─TextFile
+├─mysite
+│  └─__pycache__
+├─static
+│  └─accounts
+│      └─css
+├─temp
+│  └─vox
+├─voicevox_core
+│  ├─model
+│  └─open_jtalk_dic_utf_8-1.11
+└─voicevox_engine
+    ├─build_util
+    ├─docs
+    │  ├─api
+    │  ├─licenses
+    │  │  ├─cuda
+    │  │  ├─cudnn
+    │  │  ├─open_jtalk
+    │  │  │  ├─mecab
+    │  │  │  └─mecab-naist-jdic
+    │  │  └─world
+    │  └─res
+    ├─engine_manifest_assets
+    ├─speaker_info
+    │  ├─35b2c544-660e-401e-b503-0e14c635303a
+    │  │  ├─icons
+    │  │  ├─portraits
+    │  │  └─voice_samples
+    │  ├─388f246b-8c41-4ac1-8e2d-5d79f3ff56d9
+    │  │  ├─icons
+    │  │  ├─portraits
+    │  │  └─voice_samples
+    │  ├─7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff
+    │  │  ├─icons
+    │  │  ├─portraits
+    │  │  └─voice_samples
+    │  └─b1a81618-b27b-40d2-b0ea-27a9ad408c4b
+    │      ├─icons
+    │      └─voice_samples
+    ├─test
+    ├─ui_template
+    ├─voicevox_engine
+    │  ├─dev
+    │  │  ├─core
+    │  │  └─synthesis_engine
+    │  ├─engine_manifest
+    │  │  └─__pycache__
+    │  ├─metas
+    │  │  └─__pycache__
+    │  ├─preset
+    │  │  └─__pycache__
+    │  ├─setting
+    │  │  └─__pycache__
+    │  ├─synthesis_engine
+    │  │  └─__pycache__
+    │  ├─utility
+    │  │  └─__pycache__
+    │  └─__pycache__
+    └─windows-cpu
+        ├─certifi
+        ├─Cython
+        │  ├─Compiler
+        │  └─Tempita
+        ├─engine_manifest_assets
+        ├─lib2to3
+        ├─numpy
+        │  ├─core
+        │  ├─fft
+        │  ├─linalg
+        │  └─random
+        ├─pydantic
+        ├─pyopenjtalk
+        │  ├─htsvoice
+        │  └─open_jtalk_dic_utf_8-1.11
+        ├─pyworld
+        ├─scipy
+        │  ├─.libs
+        │  ├─fft
+        │  │  └─_pocketfft
+        │  ├─fftpack
+        │  │  └─tests
+        │  ├─integrate
+        │  │  └─tests
+        │  ├─interpolate
+        │  │  └─tests
+        │  │      └─data
+        │  ├─io
+        │  │  ├─arff
+        │  │  │  └─tests
+        │  │  │      └─data
+        │  │  ├─matlab
+        │  │  │  └─tests
+        │  │  │      └─data
+        │  │  └─tests
+        │  │      └─data
+        │  ├─linalg
+        │  │  ├─src
+        │  │  │  ├─id_dist
+        │  │  │  │  └─doc
+        │  │  │  └─lapack_deprecations
+        │  │  └─tests
+        │  │      └─data
+        │  ├─misc
+        │  ├─ndimage
+        │  │  └─tests
+        │  │      └─data
+        │  ├─optimize
+        │  │  ├─cython_optimize
+        │  │  ├─lbfgsb_src
+        │  │  ├─_highs
+        │  │  │  └─cython
+        │  │  │      └─src
+        │  │  ├─_lsq
+        │  │  └─_trlib
+        │  ├─signal
+        │  ├─sparse
+        │  │  ├─csgraph
+        │  │  ├─linalg
+        │  │  │  ├─dsolve
+        │  │  │  │  └─SuperLU
+        │  │  │  ├─eigen
+        │  │  │  │  └─arpack
+        │  │  │  │      └─ARPACK
+        │  │  │  └─isolve
+        │  │  └─tests
+        │  │      └─data
+        │  ├─spatial
+        │  │  ├─qhull_src
+        │  │  ├─tests
+        │  │  │  └─data
+        │  │  └─transform
+        │  ├─special
+        │  │  └─tests
+        │  │      └─data
+        │  ├─stats
+        │  │  ├─tests
+        │  │  │  └─data
+        │  │  │      ├─nist_anova
+        │  │  │      └─nist_linregress
+        │  │  └─_boost
+        │  └─_lib
+        │      └─_uarray
+        ├─speaker_info
+        │  ├─044830d2-f23b-44d6-ac0d-b5d733caa900
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─0f56c2f2-644c-49c9-8989-94e11f7129d0
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─1a17ca16-7ee5-4ea5-b191-2f02ace24d21
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─3474ee95-c274-47f9-aa1a-8322163d96f1
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─35b2c544-660e-401e-b503-0e14c635303a
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─388f246b-8c41-4ac1-8e2d-5d79f3ff56d9
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─481fb609-6446-4870-9f46-90c4dd623403
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─4f51116a-d9ee-4516-925d-21f183e2afad
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─67d5d8da-acd7-4207-bb10-b5542d3a663b
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─7ffcb7ce-00ec-4bdc-82cd-45a8889e43ff
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─8eaad775-3119-417e-8cf4-2a10bfd592c8
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─9f3ee141-26ad-437e-97bd-d22298d02ad2
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─b1a81618-b27b-40d2-b0ea-27a9ad408c4b
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  ├─c30dc15a-0992-4f8d-8bb8-ad3b314e6a6f
+        │  │  ├─icons
+        │  │  └─voice_samples
+        │  └─e5020595-5c5d-4e87-b849-270a518d0dcf
+        │      ├─icons
+        │      └─voice_samples
+        ├─yaml
+        └─_soundfile_data
