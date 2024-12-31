@@ -37,8 +37,9 @@ tags: ""
 
 
 ## デモ(図解)
-![image.png](https://boostnote.io/api/teams/ZiDFKbzPj/files/2a7f2746c24503b6ee623fc5387b8d8b0c21346960bf903cded4d36fa2026a7b-image.png)
-
+<p align="center">
+  <img src="docs/AVE.png" alt="AVE: full app" width=810 /> 
+</p>
 
 こちらは、紹介動画のリンクです。
 
