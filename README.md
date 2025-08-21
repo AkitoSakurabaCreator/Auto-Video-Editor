@@ -81,6 +81,74 @@ tags: ""
 
 ・動画編集後のURL共有(公開にされた状態でURLを共有) 
 
+## ER図 (Mermaid)
+
+```mermaid
+erDiagram
+  USER ||--o{ TEMPLATE : owns
+  TEMPLATE ||--o{ EDITOR : used_by
+  TEMPLATE ||--o{ FORMAT : uses
+  TEMPLATE ||--o{ FILTERS : uses
+  TEMPLATE ||--o{ ANIMATIONS : uses
+  TEMPLATE ||--o{ BGM : uses
+  TEMPLATE ||--o{ MODEL : uses
+  TEMPLATE ||--o{ VOICE : uses
+  TEMPLATE ||--o{ LANGUAGE : uses
+  TEMPLATE ||--o{ TELOP : uses
+  EDITOR }o--|| PUBLISH : has
+```
+
+## システム構成図 (Mermaid)
+
+```mermaid
+graph LR
+  A[Client Browser] -->|HTTP| D[Django]
+  subgraph Background
+    C[Celery Worker] --> R[(Redis Broker/Backend)]
+  end
+  D --> R
+  D -->|ffmpeg, moviepy| F[(Video Processing)]
+```
+
+## 環境変数サンプル (.env)
+
+```dotenv
+# Django
+SECRET_KEY=change-me
+DEBUG=true
+ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+
+# Redis/Celery
+REDIS_URL=redis://localhost:6379/0
+
+# Voice/Model (必要に応じて)
+VOICEVOX_DIR=/abs/path/to/voicevox_engine
+```
+
+## クイックスタート
+
+```bash
+# 依存のインストール
+pip install -r requirements.txt
+
+# マイグレーションと起動
+python manage.py migrate
+python manage.py runserver 0.0.0.0:8000
+```
+
+- 重い処理は`mysite/tasks.py`の`Edit`タスクでバックグラウンド実行。
+- 進捗は`celery_progress`で通知可能。
+
+## デプロイメモ
+- アプリはDjango + Gunicorn、非同期はCelery + Redis。
+- ffmpegはOS側にインストール必須（PATHに追加）。
+- メディアは外部ストレージ/ボリュームを推奨。
+
+## トラブルシュート
+- ffmpegが見つからない: `ffmpeg -version`で動作確認、PATHを通す。
+- Redis接続エラー: `REDIS_URL`とFirewall/起動状態を確認。
+- 進捗が更新されない: `CELERY_TASK_TRACK_STARTED=True` と Result Backend 設定を確認。
+
 ## ディレクトリ構成
 ├─accounts
 │  ├─migrations
